@@ -14,24 +14,35 @@
         <p class="text-center">
           You have designed the following websites so far
         </p>
-        <div v-for="(website, index) in websites" :key="index" class="row">
-          <div class="col-sm-8">
-            <h3>{{ website.name }}</h3>
+        <div
+          v-for="(website, index) in websites"
+          :key="index"
+          class="bg-light border-bottom border rounded row p-2 mb-3"
+        >
+          <div class="col-sm-7">
+            <h4>{{ website.name }}</h4>
             <small>{{ website.title }}</small>
           </div>
-          <div class="col-sm-4">
-            <div class="d-flex">
-              <a class="btn btn-outline-primary" href="#">Edit</a>
-              <a class="btn btn-outline-danger" href="#">Delete</a>
-            </div>
+          <div class="col-sm-5 text-center">
+            <a class="btn btn-outline-primary mr-2" href="#"
+              ><i class="fas fa-pencil-alt"></i> Edit</a
+            >
+            &nbsp;&nbsp;
+            <a class="btn btn-outline-danger" href="#"
+              ><i class="far fa-trash-alt"></i> Delete</a
+            >
           </div>
         </div>
       </div>
 
       <div v-else>
         <p>You have not designed any website on this browser.</p>
-        <a class="btn btn-primary mt-5">Start Building</a>
       </div>
+
+      <div class="text-center">
+        <a class="btn btn-primary mt-2">Start Building</a>
+      </div>
+
     </div>
   </div>
 </template>

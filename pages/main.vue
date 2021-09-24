@@ -1,6 +1,6 @@
 <template>
   <div>
-    <topmenu />
+    <topmenu :show_welcome="show_welcome" />
     <welcome v-if="show_welcome" :websites="websites" />
     <pagedesign v-else :sections="sections" />
   </div>
