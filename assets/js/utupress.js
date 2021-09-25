@@ -4,7 +4,8 @@
    //
    var db = new Dexie("utupress");
    db.version(1).stores({
-       settings: 'name,value'
+       settings: 'name,value',
+       cache: 'name,value'
    });
 
    //
@@ -57,6 +58,69 @@
 
            }
        },
+       auth: {
+           namespaced: true,
+           state: {
+               affiliate: {},
+               userprofile: {},
+               token: null,
+               user: {}
+           },
+           mutations: {
+
+               affiliate(state, payload) {
+                   state.affiliate = payload;
+               },
+
+               login(state, payload) {
+                   state.token = payload;
+               },
+               user(state, payload) {
+                   state.user = payload;
+               },
+               logout(state) {
+                   state.token = null;
+                   state.affiliate = {};
+                   state.userprofile = {};
+                   state.user = {};
+               }
+           },
+           actions: {
+               authenticate({
+                   commit
+               }, {
+                   username,
+                   password
+               }) {
+
+                   commit('login', response.data.data.tokenAuth);
+
+               },
+               getUser({
+                   commit
+               }, {
+                   that
+               }) {
+
+                   commit('user', me);
+
+               },
+               affiliate({
+                   commit
+               }, {
+                   user_id,
+               }) {
+
+                   commit('affiliate', node_data);
+
+               },
+           },
+           getters: {
+               loggedIn(state) {
+                   return state.token !== null;
+               }
+           }
+       }
    }
    /*
     // State
@@ -151,5 +215,5 @@
    }
 
    const fetchComponent = (tag_name) => {
-       return Vue.defineAsyncComponent(() => loadModule('./components/' + tag_name, options));
+       return Vue.defineAsyncComponent(() => loadModule('./pages/components/' + tag_name, options));
    }

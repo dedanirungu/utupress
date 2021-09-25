@@ -36,7 +36,7 @@
 
     let store = new Vuex.Store({
       modules: storelist,
-     /* plugins: [createPersistedState({
+      plugins: [createPersistedState({
         storage: {
           getItem: (key) => Cookies.get(key),
           // Please see https://github.com/js-cookie/js-cookie#json, on how to handle JSON.
@@ -47,7 +47,7 @@
             }),
           removeItem: (key) => Cookies.remove(key),
         },
-      })],*/
+      })],
     });
 
 
