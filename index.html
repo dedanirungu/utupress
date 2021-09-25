@@ -3,18 +3,16 @@
 <header>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
-  
+
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous"/>
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous" />
 
   <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
-  
-  <script src="https://unpkg.com/vue@next/dist/vue.global.prod.js"></script>
-  <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.prod.js"></script>
-  <script src="https://unpkg.com/vuex@4.0.0/dist/vuex.global.prod.js"></script>
+
+  <script src="./assets/js/global.js"></script>
   <script src="https://unpkg.com/vue3-sfc-loader"></script>
   <script src="https://unpkg.com/dexie@latest/dist/dexie.js"></script>
 
@@ -23,8 +21,7 @@
   </script>
 
   <!--Load Database connector -->
-  <script src="./assets/js/db.js"></script>
-  <script src="./assets/js/vue-load-module.js"></script>
+  <script src="./assets/js/utupress.js"></script>
 
 
 </header>
@@ -36,6 +33,24 @@
   </div>
 
   <script>
+
+    let store = new Vuex.Store({
+      modules: storelist,
+     /* plugins: [createPersistedState({
+        storage: {
+          getItem: (key) => Cookies.get(key),
+          // Please see https://github.com/js-cookie/js-cookie#json, on how to handle JSON.
+          setItem: (key, value) =>
+            Cookies.set(key, value, {
+              expires: 3,
+              secure: true
+            }),
+          removeItem: (key) => Cookies.remove(key),
+        },
+      })],*/
+    });
+
+
     // 2. Define some routes
     // Each route should map to a component.
     // We'll talk about nested routes later.
@@ -64,6 +79,8 @@
     const app = Vue.createApp({});
 
     app.use(router)
+
+    app.use(store)
 
     app.mount('#app');
   </script>

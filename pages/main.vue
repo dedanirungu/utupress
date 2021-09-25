@@ -1,7 +1,7 @@
 <template>
   <div>
     <topmenu :show_welcome="show_welcome" />
-    <welcome v-if="show_welcome" :websites="websites" />
+    <welcome v-if="show_welcome" :websites="websites" :that="that"  />
     <pagedesign v-else :sections="sections" />
   </div>
 </template>
@@ -40,6 +40,8 @@ export default {
       { name: "www.johndoe.com", title: "Amazing Website" },
       { name: "www.peterdoe.com", title: "Amazing Website 2" },
     ];
+
+    this.that = this
   },
   data() {
     return {
@@ -48,10 +50,14 @@ export default {
       pages: [],
       websites: [],
       show_welcome: true,
+      that: null,
     };
   },
 
   methods: {
+    createBlankDesign() {
+      this.show_welcome = false;
+    },
     reloadApp() {
       this.$router.addRoute({
         path: "/contactus",
