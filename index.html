@@ -33,19 +33,47 @@
   </div>
 
   <script>
-
     let store = new Vuex.Store({
       modules: storelist,
       plugins: [createPersistedState({
         storage: {
-          getItem: (key) => Cookies.get(key),
+          getItem: (key) =>
+            new Promise(async function  (resolve, reject) {
+              await db.cached.get(key);
+            }),
           // Please see https://github.com/js-cookie/js-cookie#json, on how to handle JSON.
           setItem: (key, value) =>
-            Cookies.set(key, value, {
-              expires: 3,
-              secure: true
+            new Promise(async function (resolve, reject) {
+
+              await db.cached.put({
+                name: key,
+                value: value
+              }).then(function () {
+                //
+                // Then when data is stored, read from it
+                //
+                return db.settings.get(key);
+              }).then(function (cached) {
+                //
+                // Display the result
+                //
+              }).catch(function (error) {
+                //
+                // Finally don't forget to catch any error
+                // that could have happened anywhere in the
+                // code blocks above.
+                //
+                alert("Ooops: " + error);
+              });
+
             }),
-          removeItem: (key) => Cookies.remove(key),
+
+          removeItem: (key) =>
+            new Promise(async function (resolve, reject) {
+              await db.cached
+                .where("name").equalsIgnoreCase(key)
+                .delete()
+            }),
         },
       })],
     });
